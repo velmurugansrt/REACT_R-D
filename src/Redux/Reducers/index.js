@@ -8,6 +8,9 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
+    console.log('reducers1', state)
+    console.log('reducers1', action)
+    console.log('reducers1---------')
 
     return appReducer(state, action);
 };

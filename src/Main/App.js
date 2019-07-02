@@ -16,18 +16,20 @@ import BaseComponent from "./BaseComponent";
 /* Varible Declaration */
 const store = configureStore();
 
-
 export default class App extends BaseComponent {
+
+
     render() {
         return (<Provider store={store}>
             <Router>
                 <div className="MainDiv">
                     <Loader />
                     <Switch>
-                        <Route exact path="/" component={ClickPage}/>
+                        <Route exact path="/" component={ClickPage} />
                     </Switch>
                 </div>
-            </Router></Provider>)
+            </Router>
+        </Provider>)
     }
 
 }
