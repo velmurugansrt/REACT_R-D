@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
+import { createLogger } from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
 import createEncryptor from 'redux-persist-transform-encrypt'
 import rootReducer from '../Reducers';
@@ -20,6 +21,7 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+const logger = createLogger();
 
 export default function configureStore(initialState) {
     if (initialState) {
@@ -34,11 +36,9 @@ export default function configureStore(initialState) {
     // const composeEnhancers =
     //     global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     // const enhancer = composeEnhancers(applyMiddleware(...middleware));
-    console.log('Store', initialState)
-    const store = createStore(persistedReducer, initialState);
-    let persistor = persistStore(store)
 
-    return store;
-
+    let store = createStore(persistedReducer, compose(applyMiddleware(logger)));
+    let persistor = persistStore(store);
+    return { store, persistor };
 
 }
